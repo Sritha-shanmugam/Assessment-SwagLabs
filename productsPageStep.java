@@ -180,9 +180,10 @@ public class productsPageStep {
     @Then("Verify the total value of the products in the cart")
     public void verify_The_Total_Value_Of_The_Products_In_The_Cart() {
         WebElement totalElement= driver.findElement(By.className("summary_total_label"));
-        String totalText=totalElement.getText().replace("$","").trim();
+        String totalText=totalElement.getText();
+        String numericValue=totalText.replaceAll("[^\\d.]","").trim();
         try {
-            double displayedTotal = Double.parseDouble(totalText);
+            double displayedTotal = Double.parseDouble(numericValue);
             System.out.println("Displayed Total Value is : $ " + displayedTotal);
         } catch (NumberFormatException e) {
             System.err.println("Failed to parse total value: " + e.getMessage());
